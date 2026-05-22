@@ -6,7 +6,7 @@ It's a multimodule maven project with producer service and consumer service are 
 # How to run the project
 
 * Make sure you have docker engine (or Docker desktop) installed and running
-* Runthe mvn clean package command from the project root to build consumer-service and producer-service jar files. 
+* Run the mvn clean package command from the project root to build consumer-service and producer-service jar files. 
   *  **`mvn clean package`**
 * Run the docker-compose.yml from the project root to create and start all docker containers (producer-service/consumer-service/kafka broker/kafka-ui/mongodb-replicaset)
   *  **`docker compose up --build -d`**
