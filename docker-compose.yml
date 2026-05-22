@@ -74,7 +74,7 @@ services:
       - mongo2
       - mongo3
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo1:27017,mongo2:27017,mongo3:27017/students?replicaSet=rs0
+      SPRING_DATA_MONGODB_URI: mongodb://mongo1:27017,mongo2:27017,mongo3:27017/payment-db?replicaSet=rs0
 
 volumes:
   mongo1_data:
