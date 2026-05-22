@@ -4,7 +4,8 @@ spring:
   application:
     name: consumer
   kafka:
-    bootstrap-servers: localhost:9093
+    # use the docker-compose service name and internal listener port so containers can reach the broker
+    bootstrap-servers: broker:9092
     producer:
       acks: all     # tels to kafka that don’t acknowledge my write until the message is safely replicated
       retries: 3    # set to zero (0) for at most one delivery semantic
