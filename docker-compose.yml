@@ -4,6 +4,7 @@ services:
     container_name: broker
     ports:
       - "9093:9093"
+      - "9092:9092"
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -58,6 +59,7 @@ services:
   producer-service:
     build: ./producer-service
     container_name: producer-service
+    image: arunasilva/producer-service:1.0
     ports:
       - "8081:8080"
     depends_on:
@@ -66,6 +68,7 @@ services:
   consumer-service:
     build: ./consumer-service
     container_name: consumer-service
+    image: arunasilva/consumer-service:1.0
     ports:
       - "8082:8080"
     depends_on:

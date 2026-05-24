@@ -22,6 +22,42 @@ It's a multimodule maven project with producer service and consumer service are 
 * Producer is sending a message in every 3 seconds to the kafka broker which supposed to be consumed by the consumer and persisted to the mongo db cluster
 * Kafka ui is available in : http://localhost:8090/
 
+
+Step 1: Enable Ingress in Minikube
+* Run the below command to enable ingress in minikube
+  * **`minikube addons enable ingress`**
+* Check it:
+  * **`kubectl get pods -n ingress-nginx`**
+
 # Architecture
 
 ![Architecture](docs/architecture.png)
+
+to get the kafka.ui service IP : (without using ingress option)
+minikube service kafka-ui --url
+
+Build docker image from docker file:
+docker build -t arunasilva/consumer-service:1.0 .
+
+Upload image from local docker to minikube docker registry:
+minikube image load arunasilva/consumer-service:1.0
+
+
+Step 4: Point kafka-ui.local to Minikube IP (IMPORTANT)
+
+Run:
+
+minikube ip
+
+Example output:
+
+192.168.49.2
+
+Now edit your hosts file:
+
+File location (Windows):
+C:\Windows\System32\drivers\etc\hosts
+
+Add:
+
+192.168.49.2 kafka-ui.local
