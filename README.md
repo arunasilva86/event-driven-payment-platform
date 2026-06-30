@@ -21,7 +21,10 @@ It's a multimodule maven project with producer service and consumer service are 
         })`
 * Producer is sending a message in every 3 seconds to the kafka broker which supposed to be consumed by the consumer and persisted to the mongo db cluster
 * Kafka ui is available in : http://localhost:8090/
-* Mongo express is available at http://<minikube-ip>:30081/db/payment-db/
+* Mongo express is available at http://mongo.local/
+  * you need to update /etc/hosts with below mappings for above URLs to work
+    * 192.168.49.2    kafka-ui.local
+      192.168.49.2    mongo.local
 
 
 Step 1: Enable Ingress in Minikube

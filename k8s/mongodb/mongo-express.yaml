@@ -26,16 +26,18 @@ spec:
               value: "true"
             - name: ME_CONFIG_BASICAUTH
               value: "false"
+            - name: ME_CONFIG_SITE_BASEURL
+              value: "/"
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo-express
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: mongo-express
   ports:
     - port: 8081
       targetPort: 8081
-      nodePort: 30081
