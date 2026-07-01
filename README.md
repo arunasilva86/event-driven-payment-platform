@@ -1,10 +1,10 @@
 # About the project
 
-This is a sample project that explain the usage of Kafka as a message broker.
+This is a sample project that explain the usage of Kafka as a message broker, mongo db replica set with docker and kubernetes.
 It's a multimodule maven project with producer service and consumer service are designed as separate modules
 
 # How to run the project
-
+Option 1: Runnign with Docker compose
 * Make sure you have docker engine (or Docker desktop) installed and running
 * Run the mvn clean package command from the project root to build consumer-service and producer-service jar files. 
   *  **`mvn clean package`**
@@ -20,13 +20,13 @@ It's a multimodule maven project with producer service and consumer service are 
         ]
         })`
 * Producer is sending a message in every 3 seconds to the kafka broker which supposed to be consumed by the consumer and persisted to the mongo db cluster
-* Kafka ui is available in : http://localhost:8090/
+* Kafka ui is available in : http://kafka-ui.local/
 * Mongo express is available at http://mongo.local/
   * you need to update /etc/hosts with below mappings for above URLs to work
     * 192.168.49.2    kafka-ui.local
       192.168.49.2    mongo.local
 
-
+Running with Kubernetes
 Step 1: Enable Ingress in Minikube
 * Run the below command to enable ingress in minikube
   * **`minikube addons enable ingress`**
