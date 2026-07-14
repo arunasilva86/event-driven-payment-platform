@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: mongo-init
+          image: mongo:7
+          command:
+            - mongosh
+            - --host
+            - payment-platform-mongo-0.payment-platform-mongo
+            - --eval
+            - |
+              try {
+                rs.status();
+              } catch (e) {
+                rs.initiate({
+                  _id: "rs0",
+                  members: [
+                    { _id: 0, host: "payment-platform-mongo-0.payment-platform-mongo:27017" }
+                  ]
+                });
+              }

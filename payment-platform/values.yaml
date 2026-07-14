@@ -1,0 +1,67 @@
+producer:
+  replicaCount: 1
+  image:
+    repository: arunasilva/producer-service
+    tag: "1.0"
+  containerPort: 8080
+  service:
+    port: 8080
+
+consumer:
+  replicaCount: 1
+  image:
+    repository: arunasilva/consumer-service
+    tag: "1.0"
+  containerPort: 8080
+  service:
+    port: 8080
+  env:
+    SPRING_DATA_MONGODB_URI: "mongodb://mongo-0.mongodb:27017,mongo-1.mongodb:27017,mongo-2.mongodb:27017/payment-db?replicaSet=rs0"
+
+kafka:
+  replicaCount: 1
+  image:
+    repository: apache/kafka
+    tag: latest
+  service:
+    kafkaPort: 9092
+    controllerPort: 9093
+
+kafkaUi:
+  replicaCount: 1
+  image:
+    repository: provectuslabs/kafka-ui
+    tag: latest
+  service:
+    port: 8080
+  ingress:
+    enabled: true
+    host: kafka-ui.local
+  kafka:
+    name: local
+    bootstrapServers: broker:9092
+
+mongodb:
+  replicaCount: 3
+  image:
+    repository: mongo
+    tag: "7"
+  service:
+    port: 27017
+    name: mongodb
+  storage:
+    size: 1Gi
+mongoExpress:
+  replicaCount: 1
+  image:
+    repository: mongo-express
+    tag: "1.0.2"
+  service:
+    port: 8081
+  mongo:
+    host: mongodb
+    port: 27017
+  ingress:
+    host: mongo.local
+  auth:
+    enabled: false

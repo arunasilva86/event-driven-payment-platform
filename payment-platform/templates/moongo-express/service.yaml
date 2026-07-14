@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-mongo-express
+spec:
+  selector:
+    app.kubernetes.io/component: mongo-express
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.mongoExpress.service.port }}
+      targetPort: {{ .Values.mongoExpress.service.port }}

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-broker
+spec:
+  selector:
+    app.kubernetes.io/component: kafka
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: kafka
+      port: {{ .Values.kafka.service.kafkaPort }}
+      targetPort: {{ .Values.kafka.service.kafkaPort }}
+    - name: controller
+      port: {{ .Values.kafka.service.controllerPort }}
+      targetPort: {{ .Values.kafka.service.controllerPort }}

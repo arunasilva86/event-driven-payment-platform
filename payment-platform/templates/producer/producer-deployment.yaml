@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: {{ .Release.Name }}-producer
+  labels:
+    {{ include "payment-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: producer
+spec:
+  replicas: {{ .Values.producer.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: producer
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: producer
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: producer-service
+          image: "{{ .Values.producer.image.repository }}:{{ .Values.producer.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.producer.containerPort }}

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongo-express
+spec:
+  replicas: {{ .Values.mongoExpress.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mongo-express
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: mongo-express
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: mongo-express
+          image: "{{ .Values.mongoExpress.image.repository }}:{{ .Values.mongoExpress.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.mongoExpress.service.port }}
+          env:
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: "{{ .Values.mongoExpress.mongo.host }}"
+            - name: ME_CONFIG_MONGODB_PORT
+              value: "{{ .Values.mongoExpress.mongo.port }}"
+            - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+              value: "true"
+            - name: ME_CONFIG_BASICAUTH
+              value: "{{ .Values.mongoExpress.auth.enabled }}"
+            - name: ME_CONFIG_SITE_BASEURL
+              value: "/"
